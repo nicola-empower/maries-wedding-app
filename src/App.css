@@ -1,0 +1,204 @@
+/* src/App.css - Final Consolidated Version */
+
+/* --- Wedding Colour Palette --- */
+:root {
+  --gold: #ddc49f;
+  --medium-blue: #6d789e;
+  --dark-blue: #606d99;
+  --white: #ffffff;
+  --dark-text: #333;
+}
+/* ------------------------------ */
+
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  margin: 0;
+  background-color: var(--dark-blue);
+}
+
+.App {
+  width: 100%;
+  text-align: center;
+}
+
+.App-header h1 {
+  font-family: 'Parisienne', cursive;
+  color: var(--gold);
+  font-size: 4rem;
+  font-weight: 400;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 40px 0 30px 0;
+}
+
+/* --- Guest Upload Page Styles --- */
+.upload-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: var(--medium-blue);
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border-top: 4px solid var(--gold);
+}
+
+.upload-container h2 {
+  color: var(--white);
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.upload-container p {
+  color: #f0f0f0;
+  margin-bottom: 2rem;
+}
+
+.upload-container input,
+.upload-container button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 1rem;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  border: none;
+  text-align: center;
+}
+
+.upload-container input[type="text"] {
+  background-color: var(--gold);
+  color: var(--dark-text);
+  font-weight: 500;
+}
+
+.upload-container input[type="file"] {
+  color: var(--white);
+}
+
+.upload-container button {
+  margin-top: 1.5rem;
+  background-color: var(--dark-blue);
+  color: var(--white);
+  font-weight: bold;
+  cursor: pointer;
+}
+/* ------------------------------ */
+
+
+/* --- Login Page Styles --- */
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background-color: var(--medium-blue);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border-top: 4px solid var(--gold);
+  box-sizing: border-box;
+}
+
+body.login-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+/* ------------------------- */
+
+
+/* --- Dashboard Styles --- */
+.dashboard-container {
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--medium-blue);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-header h1 {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--gold);
+  margin: 0;
+}
+
+.logout-button {
+  background-color: var(--gold);
+  color: var(--dark-text);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.photo-card {
+  background-color: var(--medium-blue);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-card .photo-info {
+  padding: 1rem;
+  color: var(--white);
+}
+
+.photo-card p {
+  margin: 0.5rem 0;
+}
+
+.button-group {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.download-button,
+.delete-button {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+
+.download-button {
+  background-color: var(--gold);
+  color: var(--dark-text);
+}
+
+.delete-button {
+  background-color: #c94c4c;
+  color: white;
+}
+/* ------------------------ */
