@@ -1,4 +1,4 @@
-/* src/App.css - Definitive Final Version */
+/* src/App.css - Final Corrected Version */
 
 /* --- Wedding Colour Palette --- */
 :root {
@@ -14,16 +14,12 @@
 body {
   font-family: 'Helvetica Neue', sans-serif;
   margin: 0;
-  
-  /* Background Image with Overlay */
   background: 
-    linear-gradient(rgba(61, 71, 107, 0.7), rgba(61, 71, 107, 0.7)), 
+    linear-gradient(rgba(96, 109, 153, 0.7), rgba(96, 109, 153, 0.7)), 
     url('/mariebackground.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-
-  /* This centers the content on the page */
   padding: 20px;
   box-sizing: border-box;
 }
@@ -35,7 +31,7 @@ body {
 
 
 /* --- Guest Upload Page Styles --- */
-.guest-page-container .App-header h1 {
+.App-header h1 {
   font-family: 'Parisienne', cursive;
   color: var(--gold);
   font-size: 4rem;
@@ -62,7 +58,6 @@ body {
 
 
 /* --- Login Page Styles --- */
-/* We'll add this class to the body for the login page for centering */
 body.login-body {
   display: flex;
   align-items: center;
@@ -73,8 +68,14 @@ body.login-body {
 .login-container {
   max-width: 400px;
   width: 100%;
-  margin: 0 auto;
   padding: 2.5rem;
+}
+/* ------------------------- */
+
+
+/* --- Shared Form & Container Styles --- */
+.upload-container, .login-container {
+  margin: 0 auto;
   background-color: var(--medium-blue);
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
@@ -83,37 +84,24 @@ body.login-body {
 }
 
 .login-container h2 { color: var(--white); text-align: center; margin-top: 0; margin-bottom: 2rem; font-size: 1.8rem; }
-/* ------------------------- */
 
-
-/* --- Shared Form Styles (for both pages) --- */
 .upload-container input, .upload-container button,
 .login-container input, .login-container button {
-  display: block;
-  width: 100%;
-  padding: 14px;
-  margin-top: 1rem;
-  border-radius: 8px;
-  font-size: 16px;
-  box-sizing: border-box;
-  border: none;
+  display: block; width: 100%; padding: 14px; margin-top: 1rem; border-radius: 8px; font-size: 16px; box-sizing: border-box; border: none;
 }
 
-.upload-container input, .login-container input {
-  text-align: center;
-}
+.upload-container input, .login-container input { text-align: center; }
 
 .upload-container input[type="text"],
 .login-container input[type="email"],
 .login-container input[type="password"] {
-  background-color: var(--gold);
-  color: var(--dark-text);
-  font-weight: 500;
+  background-color: var(--gold); color: var(--dark-text); font-weight: 500;
 }
 
 .upload-container input[type="file"] { color: var(--white); }
-.upload-container button { background-color: var(--dark-blue); color: var(--white); font-weight: bold; cursor: pointer; }
-.login-container button { margin-top: 1.5rem; background-color: var(--dark-blue); color: var(--white); font-weight: bold; cursor: pointer; }
+.upload-container button, .login-container button {
+  margin-top: 1.5rem; background-color: var(--dark-blue); color: var(--white); font-weight: bold; cursor: pointer;
+}
 /* ------------------------------------------- */
 
 
@@ -134,26 +122,9 @@ body.login-body {
 
 /* --- Mobile Responsive Styles --- */
 @media (max-width: 500px) {
-  body {
-    padding: 0;
-  }
-  
-  .App {
-    margin: 0;
-  }
-
-  .guest-page-container .App-header h1 {
-    font-size: 3rem;
-    margin: 30px 0 20px 0;
-  }
-
-  .upload-container, .login-container {
-    border-radius: 0;
-    box-shadow: none;
-    border-top: none;
-  }
-  
-  .login-container {
-      min-height: 100vh;
-  }
+  body:not(.login-body) { padding: 0; }
+  .App { margin: 0; }
+  .App-header h1 { font-size: 3rem; margin: 30px 0 20px 0; }
+  .upload-container, .login-container { border-radius: 0; box-shadow: none; border-top: none; }
+  .login-container { min-height: 100vh; }
 }
