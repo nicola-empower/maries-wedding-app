@@ -168,4 +168,18 @@ body.login-body {
   border: none;
   cursor: pointer;
 }
+.schedule-link {
+  display: block;
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+   color: #B8860B; /* This is the same gold as your schedule page */
+  text-decoration: none; /* This removes the underline */
+}
+
+/* This makes the link a bit darker when you hover over it */
+.schedule-link:hover {
+  color: #8b6508;
+}
 /* ------------------------------- */
