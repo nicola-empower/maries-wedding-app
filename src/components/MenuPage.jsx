@@ -5,7 +5,7 @@ import './MenuPage.css'; // We'll create this CSS file next
 function MenuPage() {
   return (
     <div className="menu-container">
-      <h1>The Wedding Menu 🍽️</h1>
+      <h1>The Wedding Menu</h1>
       
       <div className="menu-card">
         

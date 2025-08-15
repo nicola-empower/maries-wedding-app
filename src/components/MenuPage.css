@@ -1,7 +1,9 @@
 /* src/components/MenuPage.css */
 
 .menu-container {
-  background-image: url('/mariebackground.jpg');
+  background: 
+    linear-gradient(rgba(96, 109, 153, 0.7), rgba(96, 109, 153, 0.7)), 
+    url('/mariebackground.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

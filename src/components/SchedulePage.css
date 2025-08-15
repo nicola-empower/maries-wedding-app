@@ -4,7 +4,9 @@
 /* CORRECTED: Now matches the className in the JSX file. */
 .schedule-container {
   /* Sets the background image from your 'public' folder. */
-  background-image: url('/mariebackground.jpg');
+  background-image: 
+    linear-gradient(rgba(96, 109, 153, 0.7), rgba(96, 109, 153, 0.7)), 
+    url('/mariebackground.jpg');
   background-size: cover; /* Ensures the image covers the whole area */
   background-position: center; /* Centers the image */
   background-attachment: fixed; /* The background stays in place when scrolling */
