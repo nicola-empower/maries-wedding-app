@@ -1,7 +1,6 @@
 // src/App.jsx
 
 // Import necessary components and styles.
-// Routes and Route are for handling navigation between pages.
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
@@ -9,28 +8,25 @@ import './App.css';
 import GuestUploadPage from './components/GuestUploadPage.jsx';
 import AdminPage from './components/AdminPage.jsx';
 import SchedulePage from './components/SchedulePage.jsx';
+import MenuPage from './components/MenuPage.jsx'; // <-- Add this new import
 
 /**
  * The main App component that sets up the page routing for the website.
  */
 function App() {
   return (
-    // The <Routes> component acts as a container for all the individual page routes.
     <Routes>
-      {/* This rule tells the app to show your GuestUploadPage 
-        when someone visits the main website address ("/"). 
-      */}
+      {/* Main guest page */}
       <Route path="/" element={<GuestUploadPage />} />
       
-      {/* This rule tells the app to show the AdminPage 
-        when someone visits the special "/admin" address. 
-      */}
+      {/* Admin login/dashboard page */}
       <Route path="/admin" element={<AdminPage />} />
       
-      {/* This is the new rule for the schedule page. It will show 
-        the SchedulePage component when someone visits "/schedule".
-      */}
+      {/* Schedule page */}
       <Route path="/schedule" element={<SchedulePage />} />
+      
+      {/* ADD THIS NEW LINE FOR THE MENU PAGE */}
+      <Route path="/menu" element={<MenuPage />} />
     </Routes>
   );
 }

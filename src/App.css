@@ -168,18 +168,32 @@ body.login-body {
   border: none;
   cursor: pointer;
 }
-.schedule-link {
-  display: block;
-  text-align: center;
-  margin: 2rem 0;
-  font-size: 1.2rem;
-  font-weight: bold;
-   color: #B8860B; /* This is the same gold as your schedule page */
-  text-decoration: none; /* This removes the underline */
+
+/* --- STYLES FOR NAVIGATION LINKS --- */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Adds space between the buttons */
+  flex-wrap: wrap; /* Allows buttons to stack on very small screens */
 }
 
-/* This makes the link a bit darker when you hover over it */
-.schedule-link:hover {
-  color: #8b6508;
+.schedule-link {
+  display: inline-block; /* Allows for padding and background color */
+  padding: 0.75rem 1.5rem;
+  margin: 1rem 0;
+  border-radius: 8px; /* Rounded corners */
+  
+  background-color: #B8860B; /* Gold background */
+  color: #4A6478; /* Dusky blue text */
+  
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-decoration: none; /* Removes the underline */
+  transition: transform 0.2s ease; /* Smooth transition for hover effect */
 }
-/* ------------------------------- */
+
+.schedule-link:hover {
+  transform: scale(1.05); /* Slightly enlarges the button on hover */
+  color: #4A6478; /* Keeps text color the same on hover */
+}
+/* ------------------------------------ */

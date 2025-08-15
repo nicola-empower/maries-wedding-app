@@ -8,34 +8,31 @@ import UploadComponent from './UploadComponent';
 
 /**
  * This is the main page that wedding guests will see.
- * It displays the wedding title, a link to the schedule, and the photo upload tool.
+ * It displays the wedding title, navigation links, and the photo upload tool.
  */
 function GuestUploadPage() {
   // For simplicity, we've set a specific event ID for this wedding.
-  // This ensures all photos are grouped together correctly.
   const eventId = "maries-wedding-2025";
 
-  // The return statement contains all the JSX that will be displayed on the page.
   return (
-    // This "App" class is the main container for the page, connecting to your CSS.
+    // This "App" class is the main container for the page.
     <div className="App">
       <header className="App-header">
         <h1>Marie & Christopher</h1>
       </header>
 
       <main>
-        {/* Here is the new, correctly placed link to the schedule.
-          We've wrapped it in a <p> tag to give it its own space.
-        */}
-        <p>
+        {/* This container holds our new navigation buttons. */}
+        <div className="nav-links">
           <Link to="/schedule" className="schedule-link">
-            View the Wedding Schedule
+            View Schedule
           </Link>
-        </p>
+          <Link to="/menu" className="schedule-link">
+            View Menu
+          </Link>
+        </div>
 
-        {/* This is your existing photo upload component.
-            We pass the eventId to it as a prop.
-        */}
+        {/* This is your existing photo upload component. */}
         <UploadComponent eventId={eventId} />
       </main>
     </div>
