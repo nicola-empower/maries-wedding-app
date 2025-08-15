@@ -1,6 +1,7 @@
 // src/components/SchedulePage.jsx
 
-// This is the crucial line that connects your styles to this component.
+// This is the correct relative path. It tells the file to look
+// for the stylesheet in the exact same folder it's currently in.
 import './SchedulePage.css';
 
 function SchedulePage() {
