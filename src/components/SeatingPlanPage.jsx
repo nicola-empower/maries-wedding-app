@@ -1,6 +1,6 @@
 // src/components/SeatingPlanPage.jsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
 
 // We now import the Firebase services directly from your config file
@@ -14,9 +14,6 @@ const SeatingPlanPage = () => {
   const [seatingInfo, setSeatingInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-
-  // We no longer need to manually initialize Firebase inside the component
-  // We can just use the firestore instance we imported.
 
   // The app ID is also defined in your firebase.js file
   // but since we're using a specific Firestore path, we'll get it from the environment.
