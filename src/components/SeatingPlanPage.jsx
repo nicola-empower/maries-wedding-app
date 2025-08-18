@@ -1,38 +1,27 @@
 // src/components/SeatingPlanPage.jsx
 
 import React, { useState, useEffect } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection } from 'firebase/firestore';
 
-// Global variables provided by the Canvas environment
-const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+// We now import the Firebase services directly from your config file
+import { firestore } from '../firebase'; 
 
 /**
  * SeatingPlanPage component for guests to look up their seating arrangement.
  */
 const SeatingPlanPage = () => {
-  const [db, setDb] = useState(null);
-  const [isReady, setIsReady] = useState(false);
   const [guestName, setGuestName] = useState('');
   const [seatingInfo, setSeatingInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Effect to initialize Firebase Firestore once on component mount
-  useEffect(() => {
-    const initFirebase = () => {
-      try {
-        const app = initializeApp(firebaseConfig);
-        const firestoreDb = getFirestore(app);
-        setDb(firestoreDb);
-        setIsReady(true);
-      } catch (error) {
-        console.error("Error initializing Firebase:", error);
-      }
-    };
-    initFirebase();
-  }, [firebaseConfig]);
+  // We no longer need to manually initialize Firebase inside the component
+  // We can just use the firestore instance we imported.
+
+  // The app ID is also defined in your firebase.js file
+  // but since we're using a specific Firestore path, we'll get it from the environment.
+  const appId = import.meta.env.VITE_FIREBASE_APP_ID;
+
 
   // Function to handle the seating plan search
   const searchSeating = async () => {
@@ -46,14 +35,8 @@ const SeatingPlanPage = () => {
     setMessage('');
 
     try {
-      if (!isReady || !db) {
-        setMessage('Firebase is not initialized. Please try again.');
-        setLoading(false);
-        return;
-      }
-
-      // Query the 'seatingPlan' collection in Firestore
-      const q = collection(db, `artifacts/${appId}/public/data/seatingPlan`);
+      // Query the 'seatingPlan' collection using the imported firestore instance
+      const q = collection(firestore, `artifacts/${appId}/public/data/seatingPlan`);
       const querySnapshot = await getDocs(q);
       
       let found = false;
@@ -114,7 +97,7 @@ const SeatingPlanPage = () => {
             onChange={(e) => setGuestName(e.target.value)}
           />
 
-          <button onClick={searchSeating} disabled={loading || !isReady}>
+          <button onClick={searchSeating} disabled={loading}>
             {loading ? 'Searching...' : 'Find My Seat'}
           </button>
 
