@@ -50,8 +50,9 @@ const SeatingPlanPage = () => {
         return;
       }
 
-      // Query the 'seatingPlan' collection using the imported firestore instance
-      const q = collection(firestore, `artifacts/${eventId}/public/data/seatingPlan`);
+      // We now use 'maries-wedding-app' to construct the Firestore path, not the eventId.
+      const appId = 'maries-wedding-app'; 
+      const q = collection(firestore, `artifacts/${appId}/public/data/seatingPlan`);
       const querySnapshot = await getDocs(q);
       
       let found = false;
