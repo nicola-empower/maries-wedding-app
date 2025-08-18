@@ -40,7 +40,7 @@ const SeatingPlanPage = () => {
     }
 
     setLoading(true);
-    seatingInfo(null);
+    setSeatingInfo(null); // Corrected the typo here
     setMessage('');
 
     try {
@@ -118,7 +118,7 @@ const SeatingPlanPage = () => {
           </button>
 
           {seatingInfo && (
-            <div className="seating-info">
+            <div className="seating-info upload-container">
               <h3>You're at Table: {seatingInfo.tableName}</h3>
               <p>You're sitting with:</p>
               <ul>
