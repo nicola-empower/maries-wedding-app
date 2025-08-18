@@ -13,7 +13,7 @@ const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
  */
 const SeatingPlanPage = () => {
   const [db, setDb] = useState(null);
-  const [isAuthReady, setIsAuthReady] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [guestName, setGuestName] = useState('');
   const [seatingInfo, setSeatingInfo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -26,7 +26,7 @@ const SeatingPlanPage = () => {
         const app = initializeApp(firebaseConfig);
         const firestoreDb = getFirestore(app);
         setDb(firestoreDb);
-        setIsAuthReady(true);
+        setIsReady(true);
       } catch (error) {
         console.error("Error initializing Firebase:", error);
       }
@@ -46,7 +46,7 @@ const SeatingPlanPage = () => {
     setMessage('');
 
     try {
-      if (!isAuthReady || !db) {
+      if (!isReady || !db) {
         setMessage('Firebase is not initialized. Please try again.');
         setLoading(false);
         return;
@@ -96,44 +96,41 @@ const SeatingPlanPage = () => {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">Find Your Seat</h1>
-      <p className="text-lg text-gray-600 mb-8 text-center">
-        Enter your name to find your table and who you're sitting with.
-      </p>
+    <div className="App">
+      <header className="App-header">
+        <h1>Marie & Christopher</h1>
+      </header>
 
-      {/* This container has the same styling as the upload component's box */}
-      <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-        <div className="mb-6">
+      <main>
+        {/* This container uses the same class as the photo upload one for consistent styling */}
+        <div className="upload-container">
+          <h2>Find Your Seat</h2>
+          <p>Enter your name to find your table and who you're sitting with.</p>
+
           <input
             type="text"
             placeholder="Enter your full name"
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-gray-800"
           />
-        </div>
 
-        <button
-          onClick={searchSeating}
-          disabled={loading}
-          className="w-full bg-emerald-500 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-emerald-600 transition duration-200 disabled:bg-gray-400"
-        >
-          {loading ? 'Searching...' : 'Find My Seat'}
-        </button>
-      </div>
+          <button onClick={searchSeating} disabled={loading || !isReady}>
+            {loading ? 'Searching...' : 'Find My Seat'}
+          </button>
 
-      {seatingInfo && (
-        <div className="mt-8 bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">You're at Table: {seatingInfo.tableName}</h2>
-          <p className="text-gray-600 mb-2">You're sitting with:</p>
-          <ul className="list-disc list-inside space-y-1 text-gray-700">
-            {seatingInfo.guests.map((guest, index) => (
-              <li key={index} className="text-base">{guest}</li>
-            ))}
-          </ul>
+          {seatingInfo && (
+            <div className="seating-info">
+              <h3>You're at Table: {seatingInfo.tableName}</h3>
+              <p>You're sitting with:</p>
+              <ul>
+                {seatingInfo.guests.map((guest, index) => (
+                  <li key={index}>{guest}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-      )}
+      </main>
 
       {message && <MessageModal message={message} onClose={() => setMessage('')} />}
     </div>
@@ -141,37 +138,3 @@ const SeatingPlanPage = () => {
 };
 
 export default SeatingPlanPage;
-
-/*
---- Firestore Data Structure ---
-
-To make this seating plan work, you'll need to create a new collection in your Firestore database.
-The collection path must be: artifacts/{your_app_id}/public/data/seatingPlan
-
-Each document in this collection should represent a single table. The document ID can be anything, but the data inside must follow this structure exactly:
-
-Collection: artifacts/{your_app_id}/public/data/seatingPlan
-Document ID: (e.g., table-one, table-two, etc.)
-Document Data:
-
-{
-  "tableName": "One",
-  "guests": [
-    "John Smith",
-    "Jane Doe",
-    "Peter Jones"
-  ]
-}
-
-{
-  "tableName": "Two",
-  "guests": [
-    "Sarah Brown",
-    "David Williams",
-    "Emily Johnson"
-  ]
-}
-
-Make sure to use the exact table names you need (e.g., "One", "Two", "Three") as text strings, not numbers.
-The search is case-insensitive, so "John Smith" and "john smith" will both work.
-*/
