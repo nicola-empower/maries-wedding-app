@@ -50,27 +50,49 @@ const SeatingPlanPage = () => {
         return;
       }
 
-      // We now use the hardcoded appId to construct the Firestore path.
-      // THE SINGLE CHANGE IS HERE. WE REMOVE THE 'artifacts/maries-wedding-app/public/data/' part.
+      console.log('Searching for guest:', guestName.trim());
+      
+      // Query the seatingPlan collection
       const q = collection(firestore, `seatingPlan`);
       const querySnapshot = await getDocs(q);
+      
+      console.log('Number of documents found:', querySnapshot.size);
       
       let found = false;
       querySnapshot.forEach(doc => {
         const tableData = doc.data();
-        const tableGuests = tableData.guests.map(name => name.toLowerCase());
+        const tableId = doc.id; // This is the table name (e.g., "table-eight")
         
-        // Check if the guest's name exists in the list of guests for a table
-        if (tableGuests.includes(guestName.trim().toLowerCase())) {
-          setSeatingInfo({
-            tableName: tableData.tableName,
-            guests: tableData.guests
-          });
-          found = true;
+        console.log('Checking table:', tableId, 'Data:', tableData);
+        
+        // Check if the Guests field exists and is an array
+        if (tableData.Guests && Array.isArray(tableData.Guests)) {
+          const tableGuests = tableData.Guests.map(name => name.toLowerCase());
+          
+          console.log('Guests at', tableId, ':', tableGuests);
+          
+          // Check if the guest's name exists in the list of guests for a table
+          if (tableGuests.includes(guestName.trim().toLowerCase())) {
+            // Convert table-eight to "Table Eight" for display
+            const displayTableName = tableId
+              .split('-')
+              .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' ');
+              
+            setSeatingInfo({
+              tableName: displayTableName,
+              guests: tableData.Guests // Use the actual field name from Firestore
+            });
+            found = true;
+            console.log('Guest found at table:', displayTableName);
+          }
+        } else {
+          console.warn('Table', tableId, 'does not have a Guests array:', tableData);
         }
       });
 
       if (!found) {
+        console.log('Guest not found');
         setMessage('Sorry, we couldn\'t find that name. Please check the spelling and try again.');
       }
 
@@ -111,6 +133,7 @@ const SeatingPlanPage = () => {
             placeholder="Enter your full name"
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && searchSeating()}
           />
 
           <button onClick={searchSeating} disabled={loading || !isFirebaseReady}>
@@ -119,7 +142,7 @@ const SeatingPlanPage = () => {
 
           {seatingInfo && (
             <div className="seating-info upload-container">
-              <h3>You're at Table: {seatingInfo.tableName}</h3>
+              <h3>You're at {seatingInfo.tableName}</h3>
               <p>You're sitting with:</p>
               <ul>
                 {seatingInfo.guests.map((guest, index) => (
