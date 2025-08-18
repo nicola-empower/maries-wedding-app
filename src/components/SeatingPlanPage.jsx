@@ -16,8 +16,8 @@ const SeatingPlanPage = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Use the useParams hook to get the eventId from the URL
-  const { eventId } = useParams();
+  // We no longer get the eventId from the URL, so we hardcode the appId.
+  const appId = 'maries-wedding-app'; 
 
   // A state to confirm Firebase is ready
   const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -40,7 +40,7 @@ const SeatingPlanPage = () => {
     }
 
     setLoading(true);
-    setSeatingInfo(null);
+    seatingInfo(null);
     setMessage('');
 
     try {
@@ -50,9 +50,9 @@ const SeatingPlanPage = () => {
         return;
       }
 
-      // We now use 'maries-wedding-app' to construct the Firestore path, not the eventId.
-      const appId = 'maries-wedding-app'; 
-      const q = collection(firestore, `artifacts/${appId}/public/data/seatingPlan`);
+      // We now use the hardcoded appId to construct the Firestore path.
+      // THE SINGLE CHANGE IS HERE. WE REMOVE THE 'artifacts/maries-wedding-app/public/data/' part.
+      const q = collection(firestore, `seatingPlan`);
       const querySnapshot = await getDocs(q);
       
       let found = false;
