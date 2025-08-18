@@ -9,7 +9,7 @@ import GuestUploadPage from './components/GuestUploadPage.jsx';
 import AdminPage from './components/AdminPage.jsx';
 import SchedulePage from './components/SchedulePage.jsx';
 import MenuPage from './components/MenuPage.jsx'; 
-import SeatingPlanPage from './components/SeatingPlanPage.jsx'; // <-- New import for the seating plan page
+import SeatingPlanPage from './components/SeatingPlanPage.jsx';
 
 /**
  * The main App component that sets up the page routing for the website.
@@ -29,8 +29,8 @@ function App() {
       {/* Menu page */}
       <Route path="/menu" element={<MenuPage />} />
 
-      {/* Seating Plan page */}
-      <Route path="/seatingplan" element={<SeatingPlanPage />} />
+      {/* This route now expects a URL parameter for the eventId. */}
+      <Route path="/seatingplan/:eventId" element={<SeatingPlanPage />} />
     </Routes>
   );
 }

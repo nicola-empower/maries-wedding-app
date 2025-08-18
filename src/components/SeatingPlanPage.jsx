@@ -1,7 +1,8 @@
 // src/components/SeatingPlanPage.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
+import { useParams } from 'react-router-dom';
 
 // We now import the Firebase services directly from your config file
 import { firestore } from '../firebase'; 
@@ -15,10 +16,21 @@ const SeatingPlanPage = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // The app ID is also defined in your firebase.js file
-  // but since we're using a specific Firestore path, we'll get it from the environment.
-  const appId = import.meta.env.VITE_FIREBASE_APP_ID;
+  // Use the useParams hook to get the eventId from the URL
+  const { eventId } = useParams();
 
+  // A state to confirm Firebase is ready
+  const [isFirebaseReady, setIsFirebaseReady] = useState(false);
+
+  // Check if Firestore is available on component mount
+  useEffect(() => {
+    if (firestore) {
+      setIsFirebaseReady(true);
+      console.log('Firebase is ready!'); // Log to console for debugging
+    } else {
+      console.error('Firebase firestore instance is not available.');
+    }
+  }, []);
 
   // Function to handle the seating plan search
   const searchSeating = async () => {
@@ -32,8 +44,14 @@ const SeatingPlanPage = () => {
     setMessage('');
 
     try {
+      if (!isFirebaseReady) {
+        setMessage('Database is not ready. Please try again in a moment.');
+        setLoading(false);
+        return;
+      }
+
       // Query the 'seatingPlan' collection using the imported firestore instance
-      const q = collection(firestore, `artifacts/${appId}/public/data/seatingPlan`);
+      const q = collection(firestore, `artifacts/${eventId}/public/data/seatingPlan`);
       const querySnapshot = await getDocs(q);
       
       let found = false;
@@ -94,7 +112,7 @@ const SeatingPlanPage = () => {
             onChange={(e) => setGuestName(e.target.value)}
           />
 
-          <button onClick={searchSeating} disabled={loading}>
+          <button onClick={searchSeating} disabled={loading || !isFirebaseReady}>
             {loading ? 'Searching...' : 'Find My Seat'}
           </button>
 

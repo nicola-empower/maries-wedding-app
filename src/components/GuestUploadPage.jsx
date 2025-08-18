@@ -30,8 +30,8 @@ function GuestUploadPage() {
           <Link to="/menu" className="schedule-link">
             View Menu
           </Link>
-          {/* ADD THIS NEW LINE FOR THE SEATING PLAN */}
-          <Link to="/seatingplan" className="schedule-link">
+          {/* This link will now pass the eventId to the seating plan page. */}
+          <Link to={`/seatingplan/${eventId}`} className="schedule-link">
             Seating Plan
           </Link>
         </div>
