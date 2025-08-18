@@ -13,6 +13,7 @@ const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
  */
 const SeatingPlanPage = () => {
   const [db, setDb] = useState(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
   const [guestName, setGuestName] = useState('');
   const [seatingInfo, setSeatingInfo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,7 @@ const SeatingPlanPage = () => {
         const app = initializeApp(firebaseConfig);
         const firestoreDb = getFirestore(app);
         setDb(firestoreDb);
+        setIsAuthReady(true);
       } catch (error) {
         console.error("Error initializing Firebase:", error);
       }
@@ -44,7 +46,7 @@ const SeatingPlanPage = () => {
     setMessage('');
 
     try {
-      if (!db) {
+      if (!isAuthReady || !db) {
         setMessage('Firebase is not initialized. Please try again.');
         setLoading(false);
         return;
@@ -100,6 +102,7 @@ const SeatingPlanPage = () => {
         Enter your name to find your table and who you're sitting with.
       </p>
 
+      {/* This container has the same styling as the upload component's box */}
       <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
         <div className="mb-6">
           <input
