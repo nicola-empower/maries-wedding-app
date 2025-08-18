@@ -29,8 +29,8 @@ function App() {
       {/* Menu page */}
       <Route path="/menu" element={<MenuPage />} />
 
-      {/* This route now expects a URL parameter for the eventId. */}
-      <Route path="/seatingplan/:eventId" element={<SeatingPlanPage />} />
+      {/* The seating plan route is now a clean, simple path. */}
+      <Route path="/seatingplan" element={<SeatingPlanPage />} />
     </Routes>
   );
 }
