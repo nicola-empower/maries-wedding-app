@@ -40,7 +40,7 @@ const SeatingPlanPage = () => {
     }
 
     setLoading(true);
-    setSeatingInfo(null); // Corrected the typo here
+    setSeatingInfo(null);
     setMessage('');
 
     try {
