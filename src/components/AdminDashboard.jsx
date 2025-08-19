@@ -4,14 +4,13 @@ import { firestore, auth, storage } from '../firebase';
 import { collection, query, getDocs, orderBy, doc, deleteDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
-import { Link } from 'react-router-dom'; // <-- NEW: Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 
 function AdminDashboard() {
   const [uploads, setUploads] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(null); // <-- NEW: State for the lightbox
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  // ... (fetchUploads function remains the same) ...
   const fetchUploads = async () => {
     const q = query(collection(firestore, 'uploads'), orderBy('timestamp', 'desc'));
     const snapshot = await getDocs(q);
@@ -34,7 +33,6 @@ function AdminDashboard() {
         <div className="dashboard-header">
           <h1>Admin Dashboard</h1>
           <div className="admin-links">
-            {/* <-- NEW: Link to the thank-you list page --> */}
             <Link to="/thankyoulist" className="link-button">
               Thank You List
             </Link>
@@ -43,7 +41,6 @@ function AdminDashboard() {
         </div>
         <div className="photo-grid">
           {uploads.map(upload => (
-            // NEW: Added onClick handler to each card
             <div key={upload.id} className="photo-card" onClick={() => setSelectedImage(upload.fileUrl)}>
               <img src={upload.fileUrl} alt={upload.guestName || 'Guest upload'} />
               <div className="photo-info">
@@ -60,7 +57,6 @@ function AdminDashboard() {
         </div>
       </div>
 
-      {/* NEW: This is the lightbox/modal. It only appears if selectedImage is not null. */}
       {selectedImage && (
         <div className="lightbox" onClick={() => setSelectedImage(null)}>
           <button className="close-button">&times;</button>
