@@ -74,16 +74,15 @@ const SeatingPlanPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center pt-10 px-4 bg-cover bg-center" style={{ backgroundImage: "url('/mariebaground1.jpg')" }}>
+    <div className="min-h-screen flex flex-col items-center pt-8 sm:pt-12 px-4 bg-cover bg-center" style={{ backgroundImage: "url('/mariebaground1.jpg')" }}>
       
-      {/* UPDATED: Title is now yellow */}
-      <h1 className="parisienne-font text-6xl mb-8" style={{ color: '#EFE3C5' }}>Seating Plan</h1>
+      <h1 className="parisienne-font text-5xl md:text-6xl mb-6 md:mb-8 text-center" style={{ color: '#EFE3C5' }}>Seating Plan</h1>
 
-      <div className="content-box">
+      <div className="w-full max-w-md p-6 md:p-8 space-y-4 rounded-lg" style={{ backgroundColor: 'rgba(122, 122, 148, 0.8)' }}>
         
         <div className="text-center text-white">
-            <h2 className="text-2xl font-bold">Find Your Seat</h2>
-            <p className="mt-2">Enter your name to find your table and who you're sitting with.</p>
+            <h2 className="text-xl md:text-2xl font-bold">Find Your Seat</h2>
+            <p className="mt-2 text-sm md:text-base">Enter your name to find your table and who you're sitting with.</p>
         </div>
         
         <div className="flex flex-col space-y-4 mt-4">
@@ -114,19 +113,18 @@ const SeatingPlanPage = () => {
           {message && <p className="text-white bg-red-500/50 p-2 rounded-md">{message}</p>}
           
           {searchResult && (
-            /* UPDATED: All text inside this box will now be dark blue */
-            <div className="p-6 rounded-lg text-left" style={{ backgroundColor: '#EFE3C5', color: '#5A5A7B' }}>
-              <p className="text-xl">
+            <div className="p-4 md:p-6 rounded-lg text-left" style={{ backgroundColor: '#EFE3C5', color: '#5A5A7B' }}>
+              <p className="text-lg md:text-xl">
                 Hi <strong className="font-bold">{searchResult.guestName}</strong>,
               </p>
-              <p className="mt-2 text-lg">
+              <p className="mt-2 text-base md:text-lg">
                 You are sitting at <strong className="font-bold">{searchResult.tableName}</strong>.
               </p>
               
               {searchResult.tableMates.length > 0 && (
                 <div className="mt-4">
-                  <p className="font-semibold">You'll be sitting with:</p>
-                  <ul className="mt-2 space-y-1 list-disc list-inside">
+                  <p className="font-semibold text-base">You'll be sitting with:</p>
+                  <ul className="mt-2 space-y-1 list-disc list-inside text-sm md:text-base">
                     {searchResult.tableMates.map(name => <li key={name}>{name}</li>)}
                   </ul>
                 </div>
