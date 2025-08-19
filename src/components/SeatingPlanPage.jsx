@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { firestore } from '../firebase'; // Make sure this path is correct for your project
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import '../App.css'; // Using the main App.css for the global font style
+import '../App.css'; // Using the main App.css for the global font style and new content-box style
 
 const SeatingPlanPage = () => {
   const [eventId, setEventId] = useState('wedding_001');
@@ -32,7 +32,6 @@ const SeatingPlanPage = () => {
       const searchTermLowercase = searchName.trim().toLowerCase();
       const seatingCol = collection(firestore, 'seating');
       
-      // Query to find the guest
       const guestQuery = query(
         seatingCol,
         where('guestName_lowercase', '==', searchTermLowercase),
@@ -49,7 +48,6 @@ const SeatingPlanPage = () => {
       const guestDoc = guestSnapshot.docs[0].data();
       const { guestName: foundGuestName, tableName: foundTableName } = guestDoc;
 
-      // Query to find table mates
       const tableQuery = query(
         seatingCol,
         where('tableName', '==', foundTableName),
@@ -77,21 +75,19 @@ const SeatingPlanPage = () => {
 
   return (
     // Main container with the correct background image path
-    <div className="min-h-screen flex flex-col items-center pt-10 px-4 bg-cover bg-center" style={{ backgroundImage: "url('/mariebackground1.jpg')" }}>
+    <div className="min-h-screen flex flex-col items-center pt-10 px-4 bg-cover bg-center" style={{ backgroundImage: "url('/mariebaground1.jpg')" }}>
       
-      {/* Page Title with cursive font */}
       <h1 className="parisienne-font text-6xl text-stone-500 mb-8">Seating Plan</h1>
 
-      {/* The main content box, styled to match your app */}
-      <div className="w-full max-w-md p-8 space-y-4 rounded-lg" style={{ backgroundColor: 'rgba(122, 122, 148, 0.8)' }}>
+      {/* The main content box, now using a CSS class for styling */}
+      <div className="content-box">
         
         <div className="text-center text-white">
             <h2 className="text-2xl font-bold">Find Your Seat</h2>
             <p className="mt-2">Enter your name to find your table and who you're sitting with.</p>
         </div>
         
-        <div className="flex flex-col space-y-4">
-          {/* Yellowish input box for the guest's name */}
+        <div className="flex flex-col space-y-4 mt-4">
           <input
             type="text"
             value={searchName}
@@ -115,7 +111,6 @@ const SeatingPlanPage = () => {
           </button>
         </div>
 
-        {/* Display Area for Results or Messages */}
         <div className="mt-6 text-center">
           {message && <p className="text-white bg-red-500/50 p-2 rounded-md">{message}</p>}
           
