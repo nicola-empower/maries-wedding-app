@@ -1,149 +1,147 @@
-// src/components/SeatingPlanPage.jsx
+import { useState, useEffect } from 'react';
+import { firestore } from '../firebase'; // Make sure this path is correct for your project
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import '../App.css'; // Using the main App.css for the global font style
 
-import React, { useState, useEffect } from 'react';
-import { getDocs, collectionGroup } from 'firebase/firestore'; // Note the change from `collection` to `collectionGroup`
-import { useParams } from 'react-router-dom';
-
-// We now import the Firebase services directly from your config file
-import { firestore } from '../firebase'; 
-
-/**
- * SeatingPlanPage component for guests to look up their seating arrangement.
- */
 const SeatingPlanPage = () => {
-  const [guestName, setGuestName] = useState('');
-  const [seatingInfo, setSeatingInfo] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [eventId, setEventId] = useState('wedding_001');
+  const [searchName, setSearchName] = useState('');
+  const [searchResult, setSearchResult] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
-  // We no longer get the eventId from the URL, so we hardcode the appId.
-  const appId = 'maries-wedding-app'; 
+  useEffect(() => {
+    // This would be replaced with logic to get the eventId from the URL in a real app
+  }, []);
 
-  // A state to confirm Firebase is ready
-  const [isFirebaseReady, setIsFirebaseReady] = useState(false);
+  const handleSearch = async () => {
+    if (!searchName.trim()) {
+      setMessage('Please enter a name to search.');
+      return;
+    }
+    if (!eventId) {
+      setMessage('Event ID is missing. Cannot perform search.');
+      return;
+    }
 
-  // Check if Firestore is available on component mount
-  useEffect(() => {
-    if (firestore) {
-      setIsFirebaseReady(true);
-      console.log('Firebase is ready!'); // Log to console for debugging
-    } else {
-      console.error('Firebase firestore instance is not available.');
-    }
-  }, []);
+    setIsLoading(true);
+    setSearchResult(null);
+    setMessage('');
 
-  // Function to handle the seating plan search
-  const searchSeating = async () => {
-    if (!guestName.trim()) {
-      setMessage('Please enter a name to search.');
-      return;
-    }
+    try {
+      const searchTermLowercase = searchName.trim().toLowerCase();
+      const seatingCol = collection(firestore, 'seating');
+      
+      // Query to find the guest
+      const guestQuery = query(
+        seatingCol,
+        where('guestName_lowercase', '==', searchTermLowercase),
+        where('eventId', '==', eventId)
+      );
+      const guestSnapshot = await getDocs(guestQuery);
 
-    setLoading(true);
-    setSeatingInfo(null);
-    setMessage('');
+      if (guestSnapshot.empty) {
+        setMessage(`Sorry, we couldn't find "${searchName}". Please check the spelling.`);
+        setIsLoading(false);
+        return;
+      }
 
-    try {
-      if (!isFirebaseReady) {
-        setMessage('Database is not ready. Please try again in a moment.');
-        setLoading(false);
-        return;
-      }
+      const guestDoc = guestSnapshot.docs[0].data();
+      const { guestName: foundGuestName, tableName: foundTableName } = guestDoc;
 
-      // THE CORRECT QUERY: Use `collectionGroup` to search for all 'seatingPlan' collections.
-      const q = collectionGroup(firestore, `seatingPlan`);
-      const querySnapshot = await getDocs(q);
-      
-      let found = false;
-      querySnapshot.forEach(doc => {
-        const tableData = doc.data();
-        const tableId = doc.id; // This is the table name (e.g., "table-eight")
-        
-        // Check if the Guests field exists and is an array
-        if (tableData.Guests && Array.isArray(tableData.Guests)) {
-          const tableGuests = tableData.Guests.map(name => name.toLowerCase());
-          
-          // Check if the guest's name exists in the list of guests for a table
-          if (tableGuests.includes(guestName.trim().toLowerCase())) {
-            // Convert table-eight to "Table Eight" for display
-            const displayTableName = tableId
-              .split('-')
-              .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(' ');
-              
-            setSeatingInfo({
-              tableName: displayTableName,
-              guests: tableData.Guests // Use the actual field name from Firestore
-            });
-            found = true;
-          }
-        }
-      });
+      // Query to find table mates
+      const tableQuery = query(
+        seatingCol,
+        where('tableName', '==', foundTableName),
+        where('eventId', '==', eventId)
+      );
+      const tableSnapshot = await getDocs(tableQuery);
 
-      if (!found) {
-        setMessage('Sorry, we couldn\'t find that name. Please check the spelling and try again.');
-      }
+      const tableMates = tableSnapshot.docs
+        .map(doc => doc.data().guestName)
+        .filter(name => name !== foundGuestName);
+      
+      setSearchResult({
+        guestName: foundGuestName,
+        tableName: foundTableName,
+        tableMates: tableMates,
+      });
 
-    } catch (error) {
-      console.error("Error searching seating plan:", error);
-      setMessage('An error occurred. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
+    } catch (error) {
+      console.error("Error searching seating plan: ", error);
+      setMessage('Oh no! Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  // Simple modal component for displaying messages
-  const MessageModal = ({ message, onClose }) => (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg p-6 shadow-xl text-center max-w-sm w-full">
-        <p className="text-gray-800 text-lg">{message}</p>
-        <button onClick={onClose} className="mt-4 px-4 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition duration-200">
-          Close
-        </button>
-      </div>
-    </div>
-  );
+  return (
+    // Main container with the correct background image path
+    <div className="min-h-screen flex flex-col items-center pt-10 px-4 bg-cover bg-center" style={{ backgroundImage: "url('/mariebackground1.jpg')" }}>
+      
+      {/* Page Title with cursive font */}
+      <h1 className="parisienne-font text-6xl text-stone-500 mb-8">Seating Plan</h1>
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Marie & Christopher</h1>
-      </header>
+      {/* The main content box, styled to match your app */}
+      <div className="w-full max-w-md p-8 space-y-4 rounded-lg" style={{ backgroundColor: 'rgba(122, 122, 148, 0.8)' }}>
+        
+        <div className="text-center text-white">
+            <h2 className="text-2xl font-bold">Find Your Seat</h2>
+            <p className="mt-2">Enter your name to find your table and who you're sitting with.</p>
+        </div>
+        
+        <div className="flex flex-col space-y-4">
+          {/* Yellowish input box for the guest's name */}
+          <input
+            type="text"
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+            placeholder="Enter your full name..."
+            className="w-full p-3 border-none rounded-md text-gray-800"
+            style={{ backgroundColor: '#EFE3C5' }}
+            onKeyPress={(event) => {
+              if (event.key === 'Enter') {
+                handleSearch();
+              }
+            }}
+          />
+          <button
+            onClick={handleSearch}
+            disabled={isLoading}
+            className="w-full px-6 py-3 font-semibold text-white rounded-md"
+            style={{ backgroundColor: '#5A5A7B' }}
+          >
+            {isLoading ? 'Searching...' : 'Search'}
+          </button>
+        </div>
 
-      <main>
-        {/* This container uses the same class as the photo upload one for consistent styling */}
-        <div className="upload-container">
-          <h2>Find Your Seat</h2>
-          <p>Enter your name to find your table and who you're sitting with.</p>
-
-          <input
-            type="text"
-            placeholder="Enter your full name"
-            value={guestName}
-            onChange={(e) => setGuestName(e.target.value)}
-          />
-
-          <button onClick={searchSeating} disabled={loading || !isFirebaseReady}>
-            {loading ? 'Searching...' : 'Find My Seat'}
-          </button>
-
-          {seatingInfo && (
-            <div className="seating-info upload-container">
-              <h3>You're at Table: {seatingInfo.tableName}</h3>
-              <p>You're sitting with:</p>
-              <ul>
-                {seatingInfo.guests.map((guest, index) => (
-                  <li key={index}>{guest}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </main>
-
-      {message && <MessageModal message={message} onClose={() => setMessage('')} />}
-    </div>
-  );
+        {/* Display Area for Results or Messages */}
+        <div className="mt-6 text-center">
+          {message && <p className="text-white bg-red-500/50 p-2 rounded-md">{message}</p>}
+          
+          {searchResult && (
+            <div className="p-6 rounded-lg text-left" style={{ backgroundColor: '#EFE3C5' }}>
+              <p className="text-xl text-gray-800">
+                Hi <strong className="font-bold">{searchResult.guestName}</strong>,
+              </p>
+              <p className="mt-2 text-lg text-gray-700">
+                You are sitting at <strong className="font-bold">{searchResult.tableName}</strong>.
+              </p>
+              
+              {searchResult.tableMates.length > 0 && (
+                <div className="mt-4">
+                  <p className="font-semibold text-gray-800">You'll be sitting with:</p>
+                  <ul className="mt-2 space-y-1 list-disc list-inside text-gray-600">
+                    {searchResult.tableMates.map(name => <li key={name}>{name}</li>)}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SeatingPlanPage;
