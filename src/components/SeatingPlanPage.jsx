@@ -74,12 +74,11 @@ const SeatingPlanPage = () => {
   };
 
   return (
-    // Main container with the correct background image path
     <div className="min-h-screen flex flex-col items-center pt-10 px-4 bg-cover bg-center" style={{ backgroundImage: "url('/mariebaground1.jpg')" }}>
       
-      <h1 className="parisienne-font text-6xl text-stone-500 mb-8">Seating Plan</h1>
+      {/* UPDATED: Title is now yellow */}
+      <h1 className="parisienne-font text-6xl mb-8" style={{ color: '#EFE3C5' }}>Seating Plan</h1>
 
-      {/* The main content box, now using a CSS class for styling */}
       <div className="content-box">
         
         <div className="text-center text-white">
@@ -115,18 +114,19 @@ const SeatingPlanPage = () => {
           {message && <p className="text-white bg-red-500/50 p-2 rounded-md">{message}</p>}
           
           {searchResult && (
-            <div className="p-6 rounded-lg text-left" style={{ backgroundColor: '#EFE3C5' }}>
-              <p className="text-xl text-gray-800">
+            /* UPDATED: All text inside this box will now be dark blue */
+            <div className="p-6 rounded-lg text-left" style={{ backgroundColor: '#EFE3C5', color: '#5A5A7B' }}>
+              <p className="text-xl">
                 Hi <strong className="font-bold">{searchResult.guestName}</strong>,
               </p>
-              <p className="mt-2 text-lg text-gray-700">
+              <p className="mt-2 text-lg">
                 You are sitting at <strong className="font-bold">{searchResult.tableName}</strong>.
               </p>
               
               {searchResult.tableMates.length > 0 && (
                 <div className="mt-4">
-                  <p className="font-semibold text-gray-800">You'll be sitting with:</p>
-                  <ul className="mt-2 space-y-1 list-disc list-inside text-gray-600">
+                  <p className="font-semibold">You'll be sitting with:</p>
+                  <ul className="mt-2 space-y-1 list-disc list-inside">
                     {searchResult.tableMates.map(name => <li key={name}>{name}</li>)}
                   </ul>
                 </div>
