@@ -1,0 +1,106 @@
+/* src/components/SeatingPlanPage.css */
+
+/* Main container for the whole page */
+.seating-plan-container {
+  background-image: url('/mariebaground1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Styles the main 'Seating Plan' title */
+.seating-plan-container h1 {
+  font-family: 'Parisienne', cursive;
+  color: #ddc49f; /* Gold */
+  font-size: 3rem;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/* Styles the main blue content box */
+.seating-plan-box {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: rgba(96, 109, 153, 0.8); /* Semi-transparent blue */
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: white;
+}
+
+/* Styles the sub-heading inside the box */
+.seating-plan-box h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Styles the instruction text */
+.seating-plan-box p {
+  margin-top: 0.5rem;
+}
+
+/* Styles the input field and search button container */
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Styles the text input box */
+.search-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #EFE3C5; /* Yellowish */
+  color: #4A6478; /* Dusky blue text */
+  font-size: 1rem;
+}
+
+/* Styles the search button */
+.search-button {
+  width: 100%;
+  padding: 0.75rem;
+  font-weight: 600;
+  color: white;
+  background-color: #5A5A7B; /* Darker blue */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.search-button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Styles the yellow results box */
+.results-box {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #EFE3C5;
+  color: #5A5A7B; /* Dark blue text */
+  text-align: left;
+}
+
+.results-box p {
+  color: #5A5A7B;
+}
+
+.results-box .table-mates-list {
+  list-style: disc;
+  list-style-position: inside;
+  margin-top: 0.5rem;
+  color: #5A5A7B;
+}
