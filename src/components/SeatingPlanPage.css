@@ -18,9 +18,9 @@
 .seating-plan-container h1 {
   font-family: 'Parisienne', cursive;
   color: #ddc49f; /* Gold */
-  font-size: 3rem;
+  font-size: 2.5rem; /* Smaller base font size for mobile */
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
@@ -40,13 +40,14 @@
 
 /* Styles the sub-heading inside the box */
 .seating-plan-box h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem; /* Smaller for mobile */
   font-weight: bold;
 }
 
 /* Styles the instruction text */
 .seating-plan-box p {
   margin-top: 0.5rem;
+  font-size: 0.9rem; /* Smaller for mobile */
 }
 
 /* Styles the input field and search button container */
@@ -96,6 +97,7 @@
 
 .results-box p {
   color: #5A5A7B;
+  font-size: 0.9rem; /* Smaller for mobile */
 }
 
 .results-box .table-mates-list {
@@ -103,4 +105,31 @@
   list-style-position: inside;
   margin-top: 0.5rem;
   color: #5A5A7B;
+  font-size: 0.9rem; /* Smaller for mobile */
+}
+
+/* --- RESPONSIVE STYLES (MEDIA QUERIES) --- */
+
+/* This rule applies only to screens that are 640px wide or larger (tablets and up) */
+@media (min-width: 640px) {
+  .seating-plan-container h1 {
+    font-size: 3rem; /* Increase font size for larger screens */
+    margin-bottom: 2rem;
+  }
+
+  .seating-plan-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .seating-plan-box p {
+    font-size: 1rem;
+  }
+
+  .results-box p {
+    font-size: 1rem;
+  }
+
+  .results-box .table-mates-list {
+    font-size: 1rem;
+  }
 }
