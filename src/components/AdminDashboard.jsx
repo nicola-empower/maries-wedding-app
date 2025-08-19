@@ -22,7 +22,26 @@ function AdminDashboard() {
   useEffect(() => {
     fetchUploads();
   }, []);
+  
+  const handleDelete = async (uploadId, fileUrl) => {
+    // Confirm with the user before deleting
+    if (window.confirm("Are you sure you want to delete this photo?")) {
+      try {
+        // 1. Delete the file from Firebase Storage
+        const imageRef = ref(storage, fileUrl);
+        await deleteObject(imageRef);
 
+        // 2. Delete the document from Firestore
+        await deleteDoc(doc(firestore, 'uploads', uploadId));
+
+        // 3. Update the state to remove the photo from the UI
+        setUploads(uploads.filter(upload => upload.id !== uploadId));
+      } catch (error) {
+        console.error("Error removing document or image: ", error);
+        alert("Failed to delete the photo. Please try again.");
+      }
+    }
+  };
   if (loading) {
     return <p className="loading-message">Loading photos...</p>;
   }
@@ -31,7 +50,7 @@ function AdminDashboard() {
     <>
       <div className="dashboard-container">
         <div className="dashboard-header">
-          <h1>Admin Dashboard</h1>
+          <h1>Hello, Mrs. Cochrane!</h1>
           <div className="admin-links">
             <Link to="/thankyoulist" className="link-button">
               Thank You List
