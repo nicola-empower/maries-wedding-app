@@ -4,6 +4,7 @@ import { firestore, auth, storage } from '../firebase';
 import { collection, query, getDocs, orderBy, doc, deleteDoc } from 'firebase/firestore';
 import { ref, deleteObject } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
+import { Link } from 'react-router-dom'; // <-- NEW: Import Link from react-router-dom
 
 function AdminDashboard() {
   const [uploads, setUploads] = useState([]);
@@ -32,7 +33,13 @@ function AdminDashboard() {
       <div className="dashboard-container">
         <div className="dashboard-header">
           <h1>Admin Dashboard</h1>
-          <button onClick={() => signOut(auth)} className="logout-button">Logout</button>
+          <div className="admin-links">
+            {/* <-- NEW: Link to the thank-you list page --> */}
+            <Link to="/thankyoulist" className="link-button">
+              Thank You List
+            </Link>
+            <button onClick={() => signOut(auth)} className="logout-button">Logout</button>
+          </div>
         </div>
         <div className="photo-grid">
           {uploads.map(upload => (
