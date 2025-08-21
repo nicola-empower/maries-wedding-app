@@ -34,7 +34,7 @@
 
 /* This is the box that will contain the list of events. */
 .schedule-timeline {
-  max-width: 400px; /* Prevents it from getting too wide on desktops */
+   max-width: 400px !important;  /* Prevents it from getting too wide on desktops */
   width: 100%; /* Ensures it doesn't overflow on very small screens */
   margin: 0 auto; /* Good practice, though flexbox is handling centering */
   

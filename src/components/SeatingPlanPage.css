@@ -29,7 +29,7 @@
 
 /* Styles the main content box with the "frosted glass" effect */
 .seating-plan-box {
-  max-width: 400px;
+  max-width: 400px !important; 
   width: 100%;
   margin: 0 auto;
   background-color: rgba(255, 255, 255, 0.85); /* Frosted glass effect */
