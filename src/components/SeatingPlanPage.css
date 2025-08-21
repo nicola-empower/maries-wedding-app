@@ -1,71 +1,65 @@
-/* src/components/SeatingPlanPage.css */
+/* ================================================== */
+/* CORRECTED SeatingPlanPage.css            */
+/* ================================================== */
 
-/* Main container for the whole page */
 .seating-plan-container {
   background-image: 
     linear-gradient(rgba(96, 109, 153, 0.7), rgba(96, 109, 153, 0.7)),
-    url('/mariebackground1.jpg'); /* Corrected typo in background image name */
+    url('/mariebackground1.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   min-height: 100vh;
-  padding: 2rem 1rem; /* Ensures content doesn't touch screen edges */
+  padding: 2rem 1rem;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  /* This is the correct rule for centering the box inside */
+  text-align: center;
 }
 
-/* Styles the main 'Seating Plan' title */
 .seating-plan-container h1 {
   font-family: 'Parisienne', cursive;
-  color: #ddc49f; /* Gold */
+  color: #ddc49f;
   font-size: 3rem;
   margin-top: 0;
   margin-bottom: 2rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-  text-align: center;
 }
 
-/* Styles the main content box with the "frosted glass" effect */
 .seating-plan-box {
-  max-width: 400px !important; 
+  /* This now works perfectly because the parent isn't using flexbox */
+  max-width: 400px;
   width: 100%;
-  margin: 0 auto;
-  background-color: rgba(255, 255, 255, 0.85); /* Frosted glass effect */
+  margin: 0 auto; /* This is the key for centering */
+  
+  background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   padding: 1.5rem;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  color: #4A6478; /* Dusky blue for better readability on a light background */
+  color: #4A6478;
 }
 
-/* Styles the sub-heading inside the box */
 .seating-plan-box h2 {
   font-size: 1.5rem;
   font-weight: bold;
   color: #4A6478;
 }
 
-/* Styles the instruction text */
 .seating-plan-box p {
   margin-top: 0.5rem;
   font-size: 1rem;
   color: #4A6478;
 }
 
-/* Styles the input field and search button container */
 .search-form {
   display: flex;
-  flex-direction: column; /* Default to stacked for mobile */
+  flex-direction: column;
   gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
-/* Styles the text input box */
 .search-input {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -74,29 +68,27 @@
   background-color: #ffffff;
   color: #4A6478;
   font-size: 1rem;
-  box-sizing: border-box; /* Important for consistent sizing */
+  box-sizing: border-box;
 }
 
-/* Styles the search button */
 .search-button {
   padding: 0.75rem 1rem;
   font-weight: 600;
   color: white;
-  background-color: #4A6478; /* Dusky blue */
+  background-color: #4A6478;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+  transition: background-color 0.2s ease-in-out;
 }
 .search-button:hover {
-  background-color: #3b5061; /* Darker blue on hover */
+  background-color: #3b5061;
 }
 .search-button:disabled {
   background-color: #999;
   cursor: not-allowed;
 }
 
-/* Styles the results box */
 .results-box {
   margin-top: 1.5rem;
   padding: 1.5rem;
@@ -104,7 +96,6 @@
   background-color: rgba(255, 255, 255, 0.7);
   color: #4A6478;
   text-align: left;
-  /* Safeguard against long names overflowing the box */
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -120,23 +111,19 @@
   margin-top: 0.75rem;
   color: #4A6478;
   font-size: 1rem;
-  padding-left: 0.5rem; /* Adds a little indentation */
+  padding-left: 0.5rem;
 }
 
-/* --- RESPONSIVE STYLES (MEDIA QUERIES) --- */
-
-/* This rule applies only to screens that are 640px wide or larger (tablets and up) */
 @media (min-width: 640px) {
-  /* Make search input and button side-by-side on larger screens */
   .search-form {
     flex-direction: row;
   }
 
   .search-input {
-    flex-grow: 1; /* Allows the input to take up the available space */
+    flex-grow: 1;
   }
 
   .search-button {
-    flex-shrink: 0; /* Prevents the button from shrinking */
+    flex-shrink: 0;
   }
 }

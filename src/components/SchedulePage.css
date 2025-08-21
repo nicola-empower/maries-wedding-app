@@ -1,78 +1,67 @@
-/* src/components/SchedulePage.css */
+/* ================================================== */
+/* CORRECTED SchedulePage.css               */
+/* ================================================== */
 
-/* This is the main container that holds the entire schedule page. */
-/* CORRECTED: Now matches the className in the JSX file. */
 .schedule-container {
   /* Sets the background image from your 'public' folder. */
   background-image: 
     linear-gradient(rgba(96, 109, 153, 0.7), rgba(96, 109, 153, 0.7)), 
     url('/mariebackground1.jpg');
-  background-size: cover; /* Ensures the image covers the whole area */
-  background-position: center; /* Centers the image */
-  background-attachment: fixed; /* The background stays in place when scrolling */
-  min-height: 100vh; /* Makes the container at least the full height of the screen */
-  padding: 2rem 1rem; /* Adds space on the top/bottom and sides, important for mobile */
-  box-sizing: border-box; /* Ensures padding doesn't add to the total width/height */
-  
-  /* --- FIX FOR CENTERING --- */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  /* This is the correct rule for centering the box inside */
+  text-align: center;
 }
 
-/* Styles the main 'Today's Schedule' title. */
 .schedule-container h1 {
-  /* Uses the elegant font you requested, with a fallback. */
   font-family: 'Parisienne', cursive; 
-  color: #ddc49f; /* A rich, classic gold color */
-  font-size: 3rem; /* Makes the title large and prominent */
+  color: #ddc49f;
+  font-size: 3rem;
   margin-top: 0;
   margin-bottom: 2rem;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Adds a subtle shadow to make it pop */
-  text-align: center; /* Ensures text is centered if it wraps */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* This is the box that will contain the list of events. */
 .schedule-timeline {
-   max-width: 400px !important;  /* Prevents it from getting too wide on desktops */
-  width: 100%; /* Ensures it doesn't overflow on very small screens */
-  margin: 0 auto; /* Good practice, though flexbox is handling centering */
+  /* This now works perfectly because the parent isn't using flexbox */
+  max-width: 400px; 
+  width: 100%;
+  margin: 0 auto; /* This is the key for centering */
   
-  /* This creates a beautiful semi-transparent "frosted glass" effect. */
   background-color: rgba(255, 255, 255, 0.85); 
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px); /* For Safari browser compatibility */
+  -webkit-backdrop-filter: blur(5px);
   
-  border-radius: 15px; /* Gives the box soft, rounded corners */
-  padding: 1rem 1.5rem; /* Adds space inside the box */
-  border: 1px solid rgba(255, 255, 255, 0.4); /* A subtle border */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* A soft shadow to lift it off the page */
+  border-radius: 15px;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles each individual item (time + event) in the schedule. */
 .schedule-item {
-  padding: 1.25rem 0; /* Adds vertical space between items */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* A faint line to separate items */
-  text-align: center; /* Center the text within each item */
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-/* This removes the separator line from the very last item in the list. */
 .schedule-item:last-child {
   border-bottom: none;
 }
 
-/* Styles the time (e.g., "1:30 PM"). */
 .time {
   font-weight: bold;
   font-size: 1.2rem;
-  color: #B8860B; /* The same rich gold as the title */
-  margin: 0 0 0.25rem 0; /* Adds a tiny bit of space below the time */
+  color: #B8860B;
+  margin: 0 0 0.25rem 0;
 }
 
-/* Styles the event description text. */
 .event {
   font-size: 1.1rem;
-  color: #4A6478; /* A beautiful, readable dusky blue */
+  color: #4A6478;
   margin: 0;
-  line-height: 1.4; /* Improves readability */
+  line-height: 1.4;
 }
