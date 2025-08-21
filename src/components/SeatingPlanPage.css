@@ -2,12 +2,14 @@
 
 /* Main container for the whole page */
 .seating-plan-container {
-  background-image: url('/mariebaground1.jpg');
+  background-image: 
+    linear-gradient(rgba(96, 109, 153, 0.7), rgba(96, 109, 153, 0.7)),
+    url('/mariebackground1.jpg'); /* Corrected typo in background image name */
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   min-height: 100vh;
-  padding: 2rem 1rem;
+  padding: 2rem 1rem; /* Ensures content doesn't touch screen edges */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -18,118 +20,123 @@
 .seating-plan-container h1 {
   font-family: 'Parisienne', cursive;
   color: #ddc49f; /* Gold */
-  font-size: 2.5rem; /* Smaller base font size for mobile */
+  font-size: 3rem;
   margin-top: 0;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
-/* Styles the main blue content box */
+/* Styles the main content box with the "frosted glass" effect */
 .seating-plan-box {
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
-  background-color: rgba(96, 109, 153, 0.8); /* Semi-transparent blue */
+  background-color: rgba(255, 255, 255, 0.85); /* Frosted glass effect */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   padding: 1.5rem;
   border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   text-align: center;
-  color: white;
+  color: #4A6478; /* Dusky blue for better readability on a light background */
 }
 
 /* Styles the sub-heading inside the box */
 .seating-plan-box h2 {
-  font-size: 1.25rem; /* Smaller for mobile */
+  font-size: 1.5rem;
   font-weight: bold;
+  color: #4A6478;
 }
 
 /* Styles the instruction text */
 .seating-plan-box p {
   margin-top: 0.5rem;
-  font-size: 0.9rem; /* Smaller for mobile */
+  font-size: 1rem;
+  color: #4A6478;
 }
 
 /* Styles the input field and search button container */
 .search-form {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-direction: column; /* Default to stacked for mobile */
+  gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
 /* Styles the text input box */
 .search-input {
   width: 100%;
-  padding: 0.75rem;
-  border: none;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  background-color: #EFE3C5; /* Yellowish */
-  color: #4A6478; /* Dusky blue text */
+  background-color: #ffffff;
+  color: #4A6478;
   font-size: 1rem;
+  box-sizing: border-box; /* Important for consistent sizing */
 }
 
 /* Styles the search button */
 .search-button {
-  width: 100%;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   font-weight: 600;
   color: white;
-  background-color: #5A5A7B; /* Darker blue */
+  background-color: #4A6478; /* Dusky blue */
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+}
+.search-button:hover {
+  background-color: #3b5061; /* Darker blue on hover */
 }
 .search-button:disabled {
   background-color: #999;
   cursor: not-allowed;
 }
 
-/* Styles the yellow results box */
+/* Styles the results box */
 .results-box {
   margin-top: 1.5rem;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 8px;
-  background-color: #EFE3C5;
-  color: #5A5A7B; /* Dark blue text */
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #4A6478;
   text-align: left;
+  /* Safeguard against long names overflowing the box */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .results-box p {
-  color: #5A5A7B;
-  font-size: 0.9rem; /* Smaller for mobile */
+  color: #4A6478;
+  font-size: 1rem;
 }
 
 .results-box .table-mates-list {
   list-style: disc;
   list-style-position: inside;
-  margin-top: 0.5rem;
-  color: #5A5A7B;
-  font-size: 0.9rem; /* Smaller for mobile */
+  margin-top: 0.75rem;
+  color: #4A6478;
+  font-size: 1rem;
+  padding-left: 0.5rem; /* Adds a little indentation */
 }
 
 /* --- RESPONSIVE STYLES (MEDIA QUERIES) --- */
 
 /* This rule applies only to screens that are 640px wide or larger (tablets and up) */
 @media (min-width: 640px) {
-  .seating-plan-container h1 {
-    font-size: 3rem; /* Increase font size for larger screens */
-    margin-bottom: 2rem;
+  /* Make search input and button side-by-side on larger screens */
+  .search-form {
+    flex-direction: row;
   }
 
-  .seating-plan-box h2 {
-    font-size: 1.5rem;
+  .search-input {
+    flex-grow: 1; /* Allows the input to take up the available space */
   }
 
-  .seating-plan-box p {
-    font-size: 1rem;
-  }
-
-  .results-box p {
-    font-size: 1rem;
-  }
-
-  .results-box .table-mates-list {
-    font-size: 1rem;
+  .search-button {
+    flex-shrink: 0; /* Prevents the button from shrinking */
   }
 }

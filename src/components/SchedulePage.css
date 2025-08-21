@@ -13,7 +13,11 @@
   min-height: 100vh; /* Makes the container at least the full height of the screen */
   padding: 2rem 1rem; /* Adds space on the top/bottom and sides, important for mobile */
   box-sizing: border-box; /* Ensures padding doesn't add to the total width/height */
-  text-align: center; /* Center aligns all the text inside */
+  
+  /* --- FIX FOR CENTERING --- */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Styles the main 'Today's Schedule' title. */
@@ -25,12 +29,14 @@
   margin-top: 0;
   margin-bottom: 2rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Adds a subtle shadow to make it pop */
+  text-align: center; /* Ensures text is centered if it wraps */
 }
 
 /* This is the box that will contain the list of events. */
 .schedule-timeline {
   max-width: 500px; /* Prevents it from getting too wide on desktops */
-  margin: 0 auto; /* Centers the box on the page */
+  width: 100%; /* Ensures it doesn't overflow on very small screens */
+  margin: 0 auto; /* Good practice, though flexbox is handling centering */
   
   /* This creates a beautiful semi-transparent "frosted glass" effect. */
   background-color: rgba(255, 255, 255, 0.85); 
@@ -47,6 +53,7 @@
 .schedule-item {
   padding: 1.25rem 0; /* Adds vertical space between items */
   border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* A faint line to separate items */
+  text-align: center; /* Center the text within each item */
 }
 
 /* This removes the separator line from the very last item in the list. */
