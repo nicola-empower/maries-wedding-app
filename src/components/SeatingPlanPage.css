@@ -12,8 +12,11 @@
   min-height: 100vh;
   padding: 2rem 1rem;
   box-sizing: border-box;
-  /* This is the correct rule for centering the box inside */
-  text-align: center;
+
+  /* --- NEW GRID CENTERING FIX --- */
+  display: grid;
+  place-items: center;
+  align-content: center; /* Ensures content is centered vertically */
 }
 
 .seating-plan-container h1 {
@@ -26,10 +29,8 @@
 }
 
 .seating-plan-box {
-  /* This now works perfectly because the parent isn't using flexbox */
   max-width: 400px;
   width: 100%;
-  margin: 0 auto; /* This is the key for centering */
   
   background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(5px);
@@ -39,18 +40,21 @@
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   color: #4A6478;
+  box-sizing: border-box;
 }
 
 .seating-plan-box h2 {
   font-size: 1.5rem;
   font-weight: bold;
   color: #4A6478;
+  text-align: center;
 }
 
 .seating-plan-box p {
   margin-top: 0.5rem;
   font-size: 1rem;
   color: #4A6478;
+  text-align: center;
 }
 
 .search-form {
