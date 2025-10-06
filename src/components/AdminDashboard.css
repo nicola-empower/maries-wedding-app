@@ -1,0 +1,128 @@
+/* src/components/AdminDashboard.css */
+
+.admin-dashboard-container {
+  padding: 2rem;
+  background-color: #f4f7f6;
+  min-height: 100vh;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.admin-header h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.admin-actions .link-button,
+.admin-actions .logout-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #4A5568;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  text-decoration: none;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.admin-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.media-container {
+  cursor: pointer;
+}
+
+.media-preview {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  background-color: #e2e8f0;
+  display: block;
+}
+
+.card-info {
+  padding: 1rem;
+  margin-top: auto;
+}
+
+.guest-details {
+  min-height: 60px;
+}
+
+.guest-details p {
+  margin: 0 0 0.5rem 0;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.download-button,
+.delete-button {
+  padding: 0.5rem 1rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.download-button {
+  background-color: #38a169;
+}
+
+.delete-button {
+  background-color: #c53030;
+}
+
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.lightbox-media {
+  max-width: 90%;
+  max-height: 80%;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 3rem;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
