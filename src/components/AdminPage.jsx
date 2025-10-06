@@ -5,9 +5,6 @@ import { firestore, auth } from '../firebase';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 
-// It's a good idea to create a separate CSS file for styling
-import './AdminDashboard.css'; 
-
 function AdminDashboard() {
   const [uploads, setUploads] = useState([]);
 
