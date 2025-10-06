@@ -6,26 +6,27 @@ import { collection, query, orderBy, doc, deleteDoc, onSnapshot } from 'firebase
 import { ref, deleteObject } from 'firebase/storage';
 import { signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom';
-import './AdminDashboard.css'; // Make sure you have this CSS file
+import './AdminDashboard.css';
 
 function AdminDashboard() {
   const [uploads, setUploads] = useState([]);
   const [loading, setLoading] = useState(true);
-  // Changed state to hold the full media object, not just a URL
   const [selectedMedia, setSelectedMedia] = useState(null);
 
-  // Using onSnapshot for real-time updates (from my suggestion)
+  // THIS IS THE CORRECTED CODE - It uses onSnapshot for live updates
   useEffect(() => {
     const q = query(collection(firestore, 'uploads'), orderBy('timestamp', 'desc'));
+    
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const uploadsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setUploads(uploadsData);
       setLoading(false);
     });
-    return () => unsubscribe(); // Cleanup listener
+
+    // This cleans up the listener when you leave the page
+    return () => unsubscribe();
   }, []);
   
-  // Your original handleDelete function (it's perfect)
   const handleDelete = async (upload) => {
     if (window.confirm("Are you sure you want to delete this?")) {
       try {
@@ -36,7 +37,7 @@ function AdminDashboard() {
         // 2. Delete the document from Firestore
         await deleteDoc(doc(firestore, 'uploads', upload.id));
 
-        // 3. No need to update state manually, onSnapshot will do it automatically!
+        // 3. onSnapshot will automatically update the UI. No extra code needed!
       } catch (error) {
         console.error("Error removing document or file: ", error);
         alert("Failed to delete. Please try again.");
@@ -63,8 +64,6 @@ function AdminDashboard() {
         <div className="gallery-grid">
           {uploads.map(upload => (
             <div key={upload.id} className="admin-card">
-              
-              {/* --- 1. THE VIDEO FIX FOR THE GALLERY --- */}
               <div className="media-container" onClick={() => setSelectedMedia(upload)}>
                 {upload.fileType.startsWith('video') ? (
                   <video src={upload.fileUrl} className="media-preview" />
@@ -72,7 +71,6 @@ function AdminDashboard() {
                   <img src={upload.fileUrl} alt={upload.guestName || 'Guest upload'} className="media-preview" />
                 )}
               </div>
-
               <div className="card-info">
                 <div className="guest-details">
                     <p><strong>{upload.guestName || 'Anonymous'}</strong></p>
@@ -82,7 +80,6 @@ function AdminDashboard() {
                   <a href={upload.fileUrl} download className="download-button" onClick={(e) => e.stopPropagation()}>
                     Download
                   </a>
-                  {/* Added a delete button to use your handleDelete function */}
                   <button onClick={() => handleDelete(upload)} className="delete-button">
                     Delete
                   </button>
@@ -93,7 +90,6 @@ function AdminDashboard() {
         </div>
       </div>
 
-      {/* --- 2. THE VIDEO FIX FOR THE LIGHTBOX --- */}
       {selectedMedia && (
         <div className="lightbox" onClick={() => setSelectedMedia(null)}>
           <button className="close-button">&times;</button>
