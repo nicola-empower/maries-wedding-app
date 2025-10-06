@@ -1,74 +1,45 @@
-// src/components/AdminDashboard.jsx
+// src/components/AdminPage.jsx
 
-import React, { useState, useEffect } from 'react';
-import { firestore, auth } from '../firebase';
-import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { signOut } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
+import LoginPage from './LoginPage.jsx';
+import AdminDashboard from './AdminDashboard.jsx';
 
-function AdminDashboard() {
-  const [uploads, setUploads] = useState([]);
+function AdminPage() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // This hook fetches the data from Firestore when the component loads
+  // This useEffect hook listens for changes in the login state
   useEffect(() => {
-    const uploadsCollection = collection(firestore, 'uploads');
-    const q = query(uploadsCollection, orderBy('timestamp', 'desc'));
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const uploadsData = querySnapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id
-      }));
-      setUploads(uploadsData);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
     });
-
-    // Cleanup function to stop listening when we leave the page
+    // This cleans up the listener when the component is removed
     return () => unsubscribe();
   }, []);
 
-  const handleLogout = () => {
-    signOut(auth).catch((error) => console.error("Logout Error:", error));
-  };
+  // This useEffect hook adds a special class to the body
+  // ONLY when the login page is visible, allowing us to center it.
+  useEffect(() => {
+    if (!user) {
+      document.body.classList.add('login-body');
+    }
+    // This is a "cleanup" function that removes the class when the
+    // user logs in or navigates away.
+    return () => {
+      document.body.classList.remove('login-body');
+    };
+  }, [user]); // This effect re-runs whenever the 'user' state changes
 
-  return (
-    <div className="admin-dashboard-container">
-      <header className="admin-header">
-        <h1>Hello, Mrs. Cochrane!</h1>
-        <div className="admin-actions">
-          <button>Thank You List</button>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
-      </header>
+  if (loading) {
+    // You can replace this with a more stylish loading spinner later
+    return <div className="loading-screen">Loading...</div>;
+  }
 
-      <div className="gallery-grid">
-        {uploads.map((upload) => (
-          <div key={upload.id} className="admin-card">
-            
-            {/* --- THIS IS THE FIX --- */}
-            {/* We check the fileType and use the correct HTML tag */}
-            {upload.fileType.startsWith('video') ? (
-              <video src={upload.fileUrl} controls className="media-preview" />
-            ) : (
-              <img src={upload.fileUrl} alt={upload.guestName || 'Uploaded media'} className="media-preview" />
-            )}
-            {/* --- END OF FIX --- */}
-
-            <div className="card-info">
-              <p className="guest-name">{upload.guestName || 'Anonymous'}</p>
-              <a 
-                href={upload.fileUrl} 
-                download 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="download-button"
-              >
-                Download
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  // If a user is logged in, show the Dashboard. If not, show the Login Page.
+  return user ? <AdminDashboard /> : <LoginPage />;
 }
 
-export default AdminDashboard;
+export default AdminPage;
