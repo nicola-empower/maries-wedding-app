@@ -3,18 +3,8 @@
 // We need to import 'Link' to allow navigation to other pages.
 import { Link } from 'react-router-dom';
 
-// The UploadComponent is now defined in this file to resolve the error.
-// A placeholder component to allow the page to render.
-function UploadComponent({ eventId }) {
-  return (
-    <div style={{ padding: '1.5rem', margin: '2rem 0', border: '2px dashed #ccc', borderRadius: '8px', textAlign: 'center' }}>
-      <h2>Upload Your Photos</h2>
-      <p>Photo upload functionality will appear here.</p>
-      <p>Event ID: {eventId}</p>
-    </div>
-  );
-}
-
+// We also import the component that handles the photo uploads.
+import UploadComponent from './UploadComponent';
 
 /**
  * This is the main page that wedding guests will see.
@@ -49,9 +39,8 @@ function GuestUploadPage() {
         {/* This is your existing photo upload component. It remains untouched. */}
         <UploadComponent eventId={eventId} />
 
-        {/* --- NEW VIDEO UPLOAD SECTION (UPDATED STYLES) ---
-            This section has been updated to include a blue border
-            to make it stand out.
+        {/* --- VIDEO UPLOAD SECTION ---
+          This section now has the blue border you requested.
         */}
         <div className="video-upload-section" style={{ 
             marginTop: '2rem', 
@@ -66,7 +55,7 @@ function GuestUploadPage() {
               href="https://www.dropbox.com/request/9i0q7EVXPBcof15d4bhG" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="schedule-link" // Using your existing button class
+            	 className="schedule-link" // Using your existing button class
             >
               Upload Video
             </a>
