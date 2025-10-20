@@ -14,6 +14,33 @@ function GuestUploadPage() {
   // For simplicity, we've set a specific event ID for this wedding.
   const eventId = "maries-wedding-2025";
 
+  // --- STYLING OBJECTS ---
+  // I've added the styles directly here to make the changes safe and self-contained.
+  const uploadContainerStyle = {
+    background: '#ffffff',
+    padding: '2rem',
+    borderRadius: '8px',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    maxWidth: '500px',
+    margin: '2rem auto', // Centers the box and adds space
+    textAlign: 'center'
+  };
+
+  const separatorStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'center',
+    color: '#aaa',
+    margin: '2rem 0'
+  };
+
+  const lineStyle = {
+    flexGrow: 1,
+    border: 'none',
+    borderTop: '1px solid #eee',
+    margin: '0 1rem'
+  };
+
   return (
     // This "App" class is the main container for the page.
     <div className="App">
@@ -36,32 +63,45 @@ function GuestUploadPage() {
           </Link>
         </div>
 
-        {/* This is your existing photo upload component. It remains untouched. */}
-        <UploadComponent eventId={eventId} />
-
-        {/* --- NEW VIDEO UPLOAD SECTION ---
-          This is the new section we are adding for videos.
-          It's separate from your photo component to ensure nothing breaks.
+        {/* --- NEW UNIFIED UPLOAD CONTAINER --- 
+            I've wrapped both the photo and video sections in this single styled container.
+            This makes them feel like part of the same component.
         */}
-        <div className="video-upload-box">
-          <h2>Got a Video to Share?</h2>
-          <p>To share videos, please use our dedicated Dropbox link below. This will open in a new tab.</p>
-          
-          {/* This is a link styled like a button.
-            - href: Your secure Dropbox File Request link.
-            - target="_blank": Opens the link in a new browser tab.
-            - rel="noopener noreferrer": A security best practice for new tabs.
-            - className="schedule-link": I've used the same class as your other buttons to keep the style consistent.
+        <div style={uploadContainerStyle}>
+
+          {/* This is your existing photo upload component. It remains untouched. */}
+          {/* I have updated the title in the UploadComponent to be more specific */}
+          <UploadComponent eventId={eventId} title="Upload a Photo" />
+
+          {/* --- VISUAL SEPARATOR --- 
+              This creates a clean "OR" line between the two options.
           */}
-          <a 
-            href="https://www.dropbox.com/request/9i0q7EVXPBcof15d4bhG" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="schedule-link"
-          >
-            Upload Video to Dropbox
-          </a>
-        </div>
+          <div style={separatorStyle}>
+            <hr style={lineStyle} />
+            <span>OR</span>
+            <hr style={lineStyle} />
+          </div>
+
+          {/* --- VIDEO UPLOAD SECTION ---
+              This is now styled to look consistent with the photo uploader above.
+          */}
+          <div>
+            <h2>Share a Video</h2>
+            <p style={{ margin: '1rem 0 1.5rem 0', color: '#555' }}>
+              To share videos from the day, please use our dedicated Dropbox link.
+            </p>
+            
+            <a 
+              href="https://www.dropbox.com/request/9i0q7EVXPBcof15d4bhG" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="schedule-link" // Using your existing button class for consistency
+            >
+              Upload Video via Dropbox
+            </a>
+          </div>
+
+        </div>
       </main>
     </div>
   );
@@ -69,3 +109,4 @@ function GuestUploadPage() {
 
 // We export the component so it can be used in App.jsx
 export default GuestUploadPage;
+
