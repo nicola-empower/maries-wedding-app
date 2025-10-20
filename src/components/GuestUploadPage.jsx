@@ -14,33 +14,6 @@ function GuestUploadPage() {
   // For simplicity, we've set a specific event ID for this wedding.
   const eventId = "maries-wedding-2025";
 
-  // --- STYLING OBJECTS ---
-  // I've added the styles directly here to make the changes safe and self-contained.
-  const uploadContainerStyle = {
-    background: '#ffffff',
-    padding: '2rem',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-    maxWidth: '500px',
-    margin: '2rem auto', // Centers the box and adds space
-    textAlign: 'center'
-  };
-
-  const separatorStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    textAlign: 'center',
-    color: '#aaa',
-    margin: '2rem 0'
-  };
-
-  const lineStyle = {
-    flexGrow: 1,
-    border: 'none',
-    borderTop: '1px solid #eee',
-    margin: '0 1rem'
-  };
-
   return (
     // This "App" class is the main container for the page.
     <div className="App">
@@ -63,44 +36,24 @@ function GuestUploadPage() {
           </Link>
         </div>
 
-        {/* --- NEW UNIFIED UPLOAD CONTAINER --- 
-            I've wrapped both the photo and video sections in this single styled container.
-            This makes them feel like part of the same component.
+        {/* This is your existing photo upload component. It remains untouched. */}
+        <UploadComponent eventId={eventId} />
+
+        {/* --- NEW VIDEO UPLOAD SECTION (NO ADDED STYLES) ---
+            This section is added directly below your component.
+            It uses your existing CSS classes for consistency.
         */}
-        <div style={uploadContainerStyle}>
-
-          {/* This is your existing photo upload component. It remains untouched. */}
-          {/* I have updated the title in the UploadComponent to be more specific */}
-          <UploadComponent eventId={eventId} title="Upload a Photo" />
-
-          {/* --- VISUAL SEPARATOR --- 
-              This creates a clean "OR" line between the two options.
-          */}
-          <div style={separatorStyle}>
-            <hr style={lineStyle} />
-            <span>OR</span>
-            <hr style={lineStyle} />
-          </div>
-
-          {/* --- VIDEO UPLOAD SECTION ---
-              This is now styled to look consistent with the photo uploader above.
-          */}
-          <div>
+        <div className="video-upload-section" style={{ marginTop: '2rem', textAlign: 'center' }}>
             <h2>Share a Video</h2>
-            <p style={{ margin: '1rem 0 1.5rem 0', color: '#555' }}>
-              To share videos from the day, please use our dedicated Dropbox link.
-            </p>
-            
+            <p>Have a video to share? Please use our Dropbox link to upload it.</p>
             <a 
               href="https://www.dropbox.com/request/9i0q7EVXPBcof15d4bhG" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="schedule-link" // Using your existing button class for consistency
+              className="schedule-link" // Using your existing button class
             >
-              Upload Video via Dropbox
+              Upload Video
             </a>
-          </div>
-
         </div>
       </main>
     </div>
