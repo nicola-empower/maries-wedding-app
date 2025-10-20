@@ -87,8 +87,8 @@ function UploadComponent({ eventId }) {
 
   return (
     <div className="upload-container">
-      <h2>📸 Upload Your Memory</h2>
-      <p>Share a photo or video from the day for the happy couple!</p>
+      <h2>📸 Upload Your Photo</h2>
+      <p>Share a photo from the day for the happy couple!</p>
       
       <input 
         type="file" 
