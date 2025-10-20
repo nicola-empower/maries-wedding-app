@@ -45,10 +45,10 @@ function GuestUploadPage() {
         <div className="video-upload-section" style={{ 
             marginTop: '2rem', 
             textAlign: 'center', 
-            border: '2px solid #6d789e', 
+            border: '2px solid #e0e6f2', 
             padding: '1.5rem', 
             borderRadius: '8px',
-            backgroundColor: '#e0e6f2' // Added fill color here
+            backgroundColor: '#6d789e' // Added fill color here
           }}>
             <h2>Share a Video</h2>
             <p>Have a video to share? Please use our Dropbox link to upload it.</p>
