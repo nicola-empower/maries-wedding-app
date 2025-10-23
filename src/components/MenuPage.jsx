@@ -32,11 +32,10 @@ function MenuPage() {
           <h2 className="course-title">Mains</h2>
           <div className="menu-item">
             <p className="item-title">Chicken Highlander</p>
-            <p className="item-description">stuffed with haggis and masked with a sping onion & drambuie cream sauce</p>
+            <p className="item-description">stuffed with haggis and masked with a spring onion & drambuie cream sauce</p>
           </div>
           <div className="menu-item">
             <p className="item-title">Homemade Steak Pie</p>
-            <p className="item-description">french trimmed chicken breast stuffed with chorizo finished with a vibrant arabic sauce</p>
           </div>
           <div className="menu-item">
              <p className="item-title">Herb Crusted Cod Fillet</p>
@@ -45,7 +44,7 @@ function MenuPage() {
           {/* This item was outside its section before */}
           <div className="menu-item">
              <p className="item-title">Mushroom and Leek Pie</p>
-             <p className="item-description">v, vg & gf</p>
+             <p className="item-description">(v, vg & gf)</p>
           </div>
         </div> {/* <-- THIS </div> WAS MOVED HERE to close 'Mains' */}
 
