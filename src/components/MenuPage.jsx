@@ -36,6 +36,7 @@ function MenuPage() {
           </div>
           <div className="menu-item">
             <p className="item-title">Homemade Steak Pie</p>
+            <p className="item-description">prime beef in rich roast gravy with a puff pastry topping</p>
           </div>
           <div className="menu-item">
              <p className="item-title">Herb Crusted Cod Fillet</p>
